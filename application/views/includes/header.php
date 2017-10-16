@@ -71,8 +71,8 @@
                 <ul class="nav side-menu">
                     <li><a><i class="fa fa-cog"></i> Manage Account<span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a href="e_commerce.html">My Profile</a></li>
-                            <li><a href="e_commerce_backend.html">Password</a></li>
+                            <li><a href="<?=site_url("profile"); ?>">My Profile</a></li>
+                            <li><a href="<?=site_url("managepassword"); ?>">Password</a></li>
                         </ul>
                     </li>
                     
@@ -83,8 +83,8 @@
                 <ul class="nav side-menu">
                     <li><a><i class="fa fa-cogs"></i>Accounts<span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a href="e_commerce.html">Add Users</a></li>
-                            <li><a href="e_commerce_backend.html">Manage users</a></li>
+                            <li><a href="<?=site_url("adduser"); ?>">Add Users</a></li>
+                            <li><a href="<?=site_url("manageaccounts"); ?>">Manage users</a></li>
                         </ul>
                     </li>
                     

@@ -31,13 +31,21 @@ var path = d3.geoPath()
 		.enter()
 		.append("path")
 		.attr("d", path)
-		.attr("stroke-width","1")
-		.attr("stroke","#ffe325")
-		.on("mouseover",function(d,i){
-			console.log(d.properties.COUNTY_NAM);
-		})
+		.attr("stroke-width","1.5")
+		.attr("stroke","rgba(75,75,75,0.8)")
+		.on('mouseover', function() {
+		      console.log( d3.event.clientX, d3.event.clientY ) // log the mouse x,y position
+		    })
 		.style("fill",function(d,i){
+			var jsonData;
+			$.ajax({
+			  dataType: "json",
+			  url: "<?=site_url("home/getCountyInfo"); ?>/"+d.id+"/1",
+			  async: false,
+			  success: function(data){jsonData = data}
+			});
 
+            return jsonData.party_color;
 		});
 		 
  	});
@@ -55,11 +63,24 @@ var path = d3.geoPath()
 		.enter()
 		.append("path")
 		.attr("d", path)
+		.attr("stroke-width","1.5")
+		.attr("stroke","rgba(75,75,75,0.8)")
 		.on("click",function(){
 			console.log(d.id);
 		}
 
-			); 
+			)
+		.style("fill",function(d,i){
+			var jsonData;
+			$.ajax({
+			  dataType: "json",
+			  url: "<?=site_url("home/getCountyInfo"); ?>/"+d.id+"/2",
+			  async: false,
+			  success: function(data){jsonData = data}
+			});
+
+            return jsonData.party_color;
+		}); 
  	});
 
 

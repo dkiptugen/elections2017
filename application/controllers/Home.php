@@ -51,6 +51,12 @@ class Home extends CI_Controller
 						echo $dbh->row()->candidate_name;
 					}
 			}
+		public function getCountyInfo($county,$year)
+			{
+				$dt=$this->hmodel->getCountyInfo($county,$year);
+				$this->output->set_content_type('application/json')
+				             ->set_output(json_encode($dt));
+			}
 		public function getGovernorDatalist($county,$year)
 			{
 				switch($year)

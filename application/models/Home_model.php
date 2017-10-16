@@ -102,4 +102,23 @@ class Home_model extends CI_Model
                    		}
 			    }
 		}
+	public function getUsers($limit,$start=0)
+		{
+
+			return
+                $this->db->order_by("Name","ASC")
+               			->limit($limit,$start)
+               			->get("poll_users")
+               			->result();
+		}
+	public function getCountyInfo($county,$year)
+		{
+			$dbh=$this->db->where("poll_year_id",$year)
+				          ->where("county_id",$county)
+				          ->get("governors");
+				if($dbh->num_rows()>0)
+					{
+						return $dbh->row();
+					}
+		}
 }

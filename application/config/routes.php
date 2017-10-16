@@ -56,3 +56,7 @@ $route['home']="home/dashboard";
 $route['changepassword']="login/changepassword";
 $route['changepassword/(:any)/(:num)']="login/changepassword/$1/$2";
 $route['logout']="login/logout";
+$route["profile"]="users/profile";
+$route["managepassword"]="users/password";
+$route["adduser"]="users/add";
+$route["manageaccounts"]="users/manage";
