@@ -1,0 +1,3 @@
+update poll_candidates set votes=(SELECT sum(poll_results.votes) from poll_results where poll_results.r_year=1 and poll_results.candidate_id=poll_candidates.c_candidateid) where poll_candidates.c_pollyear=1
+
+
