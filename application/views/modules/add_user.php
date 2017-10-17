@@ -59,6 +59,9 @@
 							</button>
 						</div>
 					</div>
+					<div class="form-group">
+						<?=(isset($msg))?$msg:NULL; ?>
+					</div>
 				</form>
             </div>
         </div>

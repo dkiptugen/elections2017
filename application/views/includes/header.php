@@ -36,7 +36,7 @@
  
         <div class="profile"><!--img_2 -->
             <div class="profile_pic">
-                <img src="<?=$this->session->userdata("userimg"); ?>" alt="profile" class="img-circle profile_img">
+                <img src="<?=base_url("assets/img/avatar.png"); ?>" alt="profile" class="img-circle profile_img">
             </div>
             <div class="profile_info">
                 <span>Welcome,</span>
@@ -50,7 +50,7 @@
             <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
-                	<li><a href="index.html">Dashboard</a></li>
+                	<li><a href="<?=site_url(); ?>">Dashboard</a></li>
                     <li><a><i class="fa fa-home"></i>Gubernatorial<span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li><a href="<?=site_url('home/governors/2013'); ?>">2013</a></li>

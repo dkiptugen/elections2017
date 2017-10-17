@@ -9,11 +9,14 @@ class Home extends CI_Controller
 				$this->load->model("home_model","hmodel");
 				$this->assist->not_loggedin();
 				$this->data["map"]=FALSE;
-				//$this->check_pass();
+				$this->check_pass();
 				$this->data["county"]=$this->hmodel->getCounties();
+				$this->data["pagetitle"]="Elections";
+				$this->data["pagesubtitle"]="";
 			}
 		public function dashboard()
 			{
+				$this->data["pagesubtitle"]="Dashboard";
 				$this->data["map"]="modules/mapdraw";
 				$this->data["view"]="dashboard";
 				$this->load->view("structure",$this->data);
@@ -22,11 +25,12 @@ class Home extends CI_Controller
 			{
 				if($this->session->userdata("password")==0)
 					{
-						redirect("changepass","refresh");
+						redirect("managepassword","refresh");
 					}
 			}
 		public function governors($year)
 			{
+				$this->data["pagesubtitle"]="Gubernatorial";
 				$this->data["view"]="gubernatorial";
            		if($this->input->post())
            		  	{
@@ -36,6 +40,7 @@ class Home extends CI_Controller
 			}
 		public function president($year)
 			{
+			   $this->data["pagesubtitle"]="Presidential";
                $this->data["candidates"]=$this->hmodel->getCandidates(1,$year);
                $this->data["view"]="presidential";
                $this->load->view("structure",$this->data);

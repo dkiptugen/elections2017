@@ -121,4 +121,55 @@ class Home_model extends CI_Model
 						return $dbh->row();
 					}
 		}
+	public function addUser()
+		{
+			$authkey=random_string('alpha',12);
+			if($this->db->where("username",$this->input->post("username"))->get("poll_users")->num_rows()>0)
+			  	{
+			  		return (object)array("error"=>"Username ".$this->input->post("username"). " already exists");
+			  	}
+			else
+				{
+					$data=array("Name"=>$this->input->post("fullname"),"username"=>$this->input->post("username"),"email"=>$this->input->post("email"),"password"=>hash("MD5",$authkey.$this->input->post("pass1")),"role"=>$this->input->post("role"),"user_status"=>1,"pass_status"=>0,"auth_key"=>$authkey);
+					$this->db->insert("poll_users",$data);
+					if($this->db->affected_rows()>0)
+						{
+							return (object)array("msg"=>"Data inserted successfully");
+						}
+		            else 
+		            	{
+		            		return (object)array("error"=>$this->db->error());
+		            	}
+	            }
+		}
+	public function changePassword() 
+		{
+			$check=$this->db->where("id",$this->session->userdata("id"))
+							->where("password","md5(concat(`auth_key`,'".$this->input->post("rpass")."'))",FALSE)
+							->get("poll_users");
+			//return (object)array("error"=>$check->get_compiled_select("poll_users"));
+			if($check->num_rows()>0)
+				{
+					$authkey=random_string('alpha',12);
+					$data=array(
+									"password"=>hash("MD5",$authkey.$this->input->post("pass1")),
+									"auth_key"=>$authkey,
+									"pass_status"=>1
+								);
+					$this->db->where("id",$this->session->userdata("id"))
+							 ->update("poll_users",$data);
+				    if($this->db->affected_rows()>0)
+				       {
+				       		return (object)array("msg"=>"password changed");
+				       }
+				    else 
+		            	{
+		            		return (object)array("error"=>$this->db->error());
+		            	}
+				}
+			else 
+            	{
+            		return (object)array("error"=>"Wrong password, try again");
+            	}
+		}
 }
