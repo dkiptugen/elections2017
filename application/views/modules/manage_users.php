@@ -13,7 +13,7 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Account Id</th>
+                            <th>Id</th>
                             <th>Name</th>
                             <th>Email</th>
                             <th>Role</th>
@@ -37,14 +37,27 @@
                                     <td>'.$role.'</td>
                                     <td>'.$user_status.'</td>
                                     <td>'.$pass_status.'</td>
-                                    <td></td>
+                                    <td>
+                                        <ul class="nav">
+                                            <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                                    Manage
+                                                    <i class="fa fa-wrench"></i>
+                                                </a>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a href="#">Change Password</a></li>
+                                                    <li><a href="#">Update User</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </td>
                                 </tr>';
                             }
                         ?>
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th>Account Id</th>
+                            <th>Id</th>
                             <th>Name</th>
                             <th>Email</th>
                             <th>Role</th>

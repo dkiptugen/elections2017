@@ -34,7 +34,7 @@
             <div class="x_content">
                 <div id="gov2013"></div>
                 <div class="tool">
-                    <div class="2013">tooltip</div>
+                    <div class="2013"></div>
                 </div>
             </div>   
         </div>
@@ -53,7 +53,7 @@
             <div class="x_content">
                 <div id="gov2017"></div>
                 <div class="tool">
-                    <div class="2017">tooltip</div>
+                    <div class="2017"></div>
                 </div>
             </div>
         </div>

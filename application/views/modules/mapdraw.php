@@ -24,6 +24,9 @@ var path = d3.geoPath()
 		.attr("width",width)
 		.attr("height",height)
 		.attr("xmlns","http://www.w3.org/2000/svg")
+		.on("mouseout",function(){
+			$(".tool >.2013, .tool > .2017").html();
+		})
 		;
 	//draw map
 	var map = svg.selectAll("path")
@@ -43,9 +46,7 @@ var path = d3.geoPath()
 			});
 		      $('.tool .2013').html(jsonData.candidate_name).parent().css("top",d3.event.clientY+"px").css("left",d3.event.clientX+"px").css("object-fit","cover");// log the mouse x,y position
 		    })
-		.on("mouseout",function(d,i){
-              $('.tool .2013').html();
-		})
+		
 		.style("fill",function(d,i){
 			var jsonData;
 			$.ajax({
@@ -85,9 +86,7 @@ var path = d3.geoPath()
 			});
 		      $('.tool .2017').html(jsonData.candidate_name).parent().css("top",d3.event.clientY+"px").css("left",d3.event.clientX+"px").css("object-fit","cover");// log the mouse x,y position
 		    })
-		.on("mouseout",function(d,i){
-              $('.tool .2017').html();
-		})
+		
 		.style("fill",function(d,i){
 			var jsonData;
 			$.ajax({
