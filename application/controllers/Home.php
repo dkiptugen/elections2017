@@ -84,6 +84,7 @@ class Home extends CI_Controller
 
 									break;
 					}
+				
 			    foreach($dbh as $value)
 			     	{
 			     		echo "<option>".$value->name."</option>";
@@ -92,6 +93,7 @@ class Home extends CI_Controller
 		public function getConstituency($county)
 			{
                 $dbh=$this->db->where("county_id",$county)->get("poll_constituencies")->result();
+                echo "<option>Select Constituency</option>";
                 foreach($dbh as $value)
                 	{
                 		echo "<option value='".$value->constituency_id."'>".$value->constituency_name."</option>";

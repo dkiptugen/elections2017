@@ -18,15 +18,15 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="npass1" class="control-label col-md-offset-2 col-md-2">Enter New password</label>
+                        <label for="pass1" class="control-label col-md-offset-2 col-md-2">Enter New password</label>
                         <div class="col-md-4">
-                            <input type="password" name="pass1" id="npass1" class="form-control">
+                            <input type="password" name="pass1" id="pass1" class="form-control" autofocus autocomplete="off" required>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="npass2" class="control-label col-md-offset-2 col-md-2">Confirm Password</label>
+                        <label for="pass2" class="control-label col-md-offset-2 col-md-2">Confirm Password</label>
                         <div class="col-md-4">
-                            <input type="password" name="pass2" id="npass2" class="form-control">
+                            <input type="password" name="pass2" id="pass2" class="form-control" autofocus autocomplete="off" required>
                         </div>
                     </div>
                     <div class="form-group">

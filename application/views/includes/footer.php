@@ -51,6 +51,46 @@
           });
 
     });
+  $("#changePassword").on("show.bs.modal",function(event)
+    { 
+      var button = $(event.relatedTarget);
+      var userid = button.data('id');
+      $("input[name='id']").val(userid);
+      $.ajax("<?=site_url('users/getUsers'); ?>/"+userid).done(function(data){
+          $("#chfname").val(data.Name);          
+      });
+     
+    });
+  $("#pass2").on("keyup",function(){
+      var pass  = $("#pass1").val();
+      var pass2 = $(this).val();
+      if(pass===pass2)
+          {
+            
+            this.setCustomValidity('');
+            $('input[type="password"]').removeClass("input-danger");
+          }
+      else
+          {
+            
+            this.setCustomValidity('Passwords must match');
+            $('input[type="password"]').addClass("input-danger");
+          }
+  });
+  $("#changePassBtn").on("click",function(){
+      var data = {id:$('input[name="id"]').val(),pass:"'"+$('input[name="pass1"]').val()+"'"};
+      // console.log(data);
+       $("form").trigger('reset');
+      $("#changePassword").modal('toggle');
+      var link ="<?=site_url("users/changePass"); ?>";
+       $.post(link,data).done(function(msg) {
+            $(".msg").addClass("alert").addClass("alert-danger").html(msg);
+            $(".alert").delay(4000).slideUp(200, function() {
+                $(this).alert('close');
+            });
+             // console.log(msg);
+       });
+    });
   });
 </script>
 <script type="text/javascript" src="<?=base_url("assets/js/custom.js"); ?>"></script> 

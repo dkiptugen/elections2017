@@ -58,6 +58,7 @@ class Home_model extends CI_Model
 		{
 		 	$this->db->select("concat(c_othernames,' ',c_surname) as Name,c_id")
 		 			 ->where("c_positioncode",$pos)
+		 			 ->where("c_pollyear",$year)
                      ->order_by("Name","DESC");
              $dbh=$this->db->get("poll_candidates");
 		 	if($dbh)
@@ -170,6 +171,26 @@ class Home_model extends CI_Model
 			else 
             	{
             		return (object)array("error"=>"Wrong password, try again");
+            	}
+		}
+	public function user($userid)
+		{
+			return
+            $this->db->where("id",$userid)
+                     ->get("poll_users")
+                     ->row();
+
+		}
+	public function adminPassC($data)
+		{
+            $this->db->where("id",$this->input->post("id"))->update("poll_users",$data);
+            if($this->db->affected_rows()>0)
+            	{
+            		return "password change successful";
+            	}
+            else
+            	{
+            		return "no change".json_encode($this->db->error());
             	}
 		}
 }

@@ -69,4 +69,23 @@ class Users extends CI_Controller
                 $this->data["view"]="manage_users";
 				$this->load->view("structure",$this->data);
 			}
+		public function getUsers($userid)
+			{
+               	$data=$this->hmodel->user($userid);
+               	$this->output->set_content_type('application/json')
+				             ->set_output(json_encode($data));
+			}
+		public function changePass()
+			{
+				//var_dump($_POST);
+				$authkey=random_string('alpha',12);
+				$pass=$authkey.str_replace("'", "",$_POST["pass"]);
+				echo $pass;
+				$data=array(
+					          "auth_key"=>$authkey,
+					          "password"=>hash("MD5",$pass),
+					          "pass_status"=>0
+				            );
+				$this->output->set_output($this->hmodel->adminPassC($data));
+			}
 	}

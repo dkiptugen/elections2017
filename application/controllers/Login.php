@@ -25,10 +25,6 @@ class Login extends CI_Controller
                             {
                                 $this->data["msg"]='<small class="alert alert-warning alert-block text text-bold" style="width:100% !important;">Account inactivated, Contact Administrator</small>';
                             }
-                        // elseif($data->pass_status==0)
-                        //     {
-                        //         redirect("changepassword","refresh");
-                        //     }
                         else
                             {
                                 $newdata = array(
