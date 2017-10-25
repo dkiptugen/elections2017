@@ -13,6 +13,7 @@ class Home extends CI_Controller
 				$this->data["county"]=$this->hmodel->getCounties();
 				$this->data["pagetitle"]="Elections";
 				$this->data["pagesubtitle"]="";
+				$this->data["msg"]=NULL;
 			}
 		public function dashboard()
 			{
@@ -40,6 +41,18 @@ class Home extends CI_Controller
 			}
 		public function president($year)
 			{
+			   if($this->input->post())
+			   		{
+			   			$data=$this->hmodel->presidentialResults();
+			   			if(isset($data->error))
+			   				{
+			   					$this->data["msg"]="<div class='alert alert-danger'>".$data->error."</div>";
+			   				}
+			   			else
+			   				{
+			   					$this->data["msg"]="<div class='alert alert-default'>".$data->msg."</div>";
+			   				}
+			   		}
 			   $this->data["pagesubtitle"]="Presidential";
                $this->data["candidates"]=$this->hmodel->getCandidates(1,$year);
                $this->data["view"]="presidential";
@@ -108,7 +121,7 @@ class Home extends CI_Controller
 					<div class="form-group">
 						<label for="votes'.$candidate->Name.'" class="control-label col-md-4">'.$candidate->Name.'</label>
 						<div class="col-md-8">
-							<input type="text" id="votes'.$candidate->Name.'" class="form-control" name="votes['.$constid.']['.$candidate->Name.']">
+							<input type="text" id="votes'.$candidate->Name.'" class="form-control" name="votes['.$candidate->c_candidateid.']" required autofocus pattern="[0-9]+$">
 						</div>
 					</div>';
 				}

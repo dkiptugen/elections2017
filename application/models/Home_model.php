@@ -26,6 +26,72 @@ class Home_model extends CI_Model
 	         		return $this->db->error();
 	         	}
 		}
+	public function presidentialResults()
+		{
+			var_dump($this->input->post());
+            foreach ($this->input->post("votes") as $key => $value)
+            	{
+            		$check=$this->db->where("r_year",$this->input->post("year"))->where("candidate_id",$key)->where("r_constituency_id",$this->input->post("constituency"))->get("poll_results");
+            		if($check)
+            			{
+            				if($check->num_rows()==0)
+            					{
+            						$data=array("candidate_id"=>$key,
+            									"r_constituency_id"=>$this->input->post("constituency"),
+            									"r_countyid"=>$this->input->post("county"),
+            									"date_modified"=>date("Y-m-d H:i:s"),
+            									"date_added"=>date("Y-m-d H:i:s"),
+            									"votes"=>$value,
+            									"r_year"=>$this->input->post("year"));
+            						$this->db->insert("poll_results",$data);
+            						if($this->db->affected_rows()>0)
+            							{
+            								$msg="results insertion successful";
+            							}
+            					}
+            				else
+            					{
+            						$this->db->where("candidate_id",$key)
+            								 ->where("r_constituency_id",$this->input->post("constituency"))
+            								 ->where("r_year",$this->input->post("year"))
+            								 ->set("date_modified","now()",FALSE)
+            								 ->set("votes",$value)
+            								 ->update("poll_results");
+            					    if($this->db->affected_rows()>0)
+            							{
+            								$msg="results update successful";
+            							}
+            					}
+            				$this->sumVotes($key,$this->input->post("year"));
+            				
+            			}
+            		else
+            			{
+            				return (object)array("error"=>json_encode($this->db->error()));
+            			}
+            	}
+            return (object)array("msg"=>$msg);
+		}
+	public function sumVotes($userid,$year)
+			{
+				$data=$this->db->where("candidate_id",$userid)->where("r_year",$year)->get("poll_results")->result();
+				$d=0;
+				foreach($data as $val)
+				  	{
+				  		$d+=$val->votes;
+				  	}
+				$this->db->where("c_candidateid",$userid)->where("c_pollyear",$year)->update("poll_candidates",array("votes"=>$d));
+				 if($this->db->affected_rows()>0)
+			      {
+			      	
+			      	 $j= "+";
+			      }
+			    else
+			    	{
+			      		 $j= "-";
+			        }
+			    return $j;
+			}
 	public function changepassrq($email,$key)
 		{
 			$dbh =  $this->db->where("email",$email)
@@ -56,7 +122,7 @@ class Home_model extends CI_Model
 		}
 	public function getCandidates($pos,$year)
 		{
-		 	$this->db->select("concat(c_othernames,' ',c_surname) as Name,c_id")
+		 	$this->db->select("concat(c_othernames,' ',c_surname) as Name,c_id,c_candidateid")
 		 			 ->where("c_positioncode",$pos)
 		 			 ->where("c_pollyear",$year)
                      ->order_by("Name","DESC");

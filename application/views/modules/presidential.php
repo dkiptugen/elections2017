@@ -12,8 +12,12 @@
             </div>
             <div class="x_content">
 				<div class="container">
+					<div class="clearfix mx-auto">
+					<?=$msg; ?>
+					</div>
 					<div class="col-md-6 col-md-offset-3">
 						<form action="<?=current_url(); ?>" class="form form-horizontal" method="post" id="presidential">
+							<input type="hidden" name="year" value="<?=$this->uri->segment(3); ?>">
 							<div class="form-group">
 								<label for="countyName" class="control-label col-md-4">County</label>
 								<div class="col-md-8">
