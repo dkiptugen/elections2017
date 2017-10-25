@@ -41,7 +41,7 @@ class Home extends CI_Controller
 			}
 		public function president($year)
 			{
-			   if($this->input->post())
+			   	if($this->input->post())
 			   		{
 			   			$data=$this->hmodel->presidentialResults();
 			   			if(isset($data->error))
@@ -117,11 +117,13 @@ class Home extends CI_Controller
 				$candidates=$this->hmodel->getCandidates(1,$year);
                	foreach($candidates as $candidate)
 				{
+					$votes=$this->hmodel->getRes($candidate->c_candidateid,$constid,$year);
+				
 					echo'
 					<div class="form-group">
 						<label for="votes'.$candidate->Name.'" class="control-label col-md-4">'.$candidate->Name.'</label>
 						<div class="col-md-8">
-							<input type="text" id="votes'.$candidate->Name.'" class="form-control" name="votes['.$candidate->c_candidateid.']" required autofocus pattern="[0-9]+$">
+							<input type="text" id="votes'.$candidate->Name.'" class="form-control" name="votes['.$candidate->c_candidateid.']" required autofocus pattern="[0-9]+$" autocomplete="FALSE" value="'.@$votes.'">
 						</div>
 					</div>';
 				}

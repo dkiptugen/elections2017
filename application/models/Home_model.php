@@ -28,7 +28,7 @@ class Home_model extends CI_Model
 		}
 	public function presidentialResults()
 		{
-			var_dump($this->input->post());
+			//var_dump($this->input->post());
             foreach ($this->input->post("votes") as $key => $value)
             	{
             		$check=$this->db->where("r_year",$this->input->post("year"))->where("candidate_id",$key)->where("r_constituency_id",$this->input->post("constituency"))->get("poll_results");
@@ -92,6 +92,18 @@ class Home_model extends CI_Model
 			        }
 			    return $j;
 			}
+    public function getRes($c_id,$const,$year)
+    	{
+    		$dbh = $this->db->where("candidate_id",$c_id)->where("r_year",$year)->where("r_constituency_id",$const)->get("poll_results");
+    		if($dbh->num_rows()>0)
+    			{
+    				return $dbh->row()->votes;
+    			}
+    		else
+    			{
+    				return NULL;
+    			}
+    	}
 	public function changepassrq($email,$key)
 		{
 			$dbh =  $this->db->where("email",$email)
@@ -122,7 +134,7 @@ class Home_model extends CI_Model
 		}
 	public function getCandidates($pos,$year)
 		{
-		 	$this->db->select("concat(c_othernames,' ',c_surname) as Name,c_id,c_candidateid")
+		 	$this->db->select("concat(c_othernames,' ',c_surname) as Name,c_id,c_candidateid,c_pollyear")
 		 			 ->where("c_positioncode",$pos)
 		 			 ->where("c_pollyear",$year)
                      ->order_by("Name","DESC");
